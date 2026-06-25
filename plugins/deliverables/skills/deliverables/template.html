@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{REPORT_TITLE}}</title>
+
+<!--
+  HOW TO EDIT (no Word needed)
+  1. Open in any browser to read. To make a PDF: Cmd/Ctrl+P, choose "Save as PDF", set Layout to "Portrait", and tick "Background graphics". Chrome gives the best result.
+  2. Edit text inside each <section> in the body, or inject section HTML into the {{CONTENT}} slot.
+  3. Branding lives in the :root BRANDING block near the top of the <style>. Override those variables to apply a brand. Leave them as-is for a clean, unbranded look.
+-->
+
+<style>
+:root{
+  /* ===== BRANDING (override these to apply a brand) =====
+     --brand-name, --accent, --accent-ink, --dark (title band), --heading, --body, logo via the .band img
+     ===== */
+  --accent:#475569; --accent-ink:#334155;
+  --dark:#1F2937;
+  --heading:Georgia,"Times New Roman",serif;
+  --body:-apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  /* ===== END BRANDING ===== */
+
+  --ink:#10262E; --bg:#FFFFFF; --paper:#FFFFFF; --panel:#F4EFE6;
+  --muted:#6B7B80; --line:#E5DCCD; --alert:#B5573F; --good:#3E7D55;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.page{max-width:210mm;margin:24px auto;background:var(--paper);box-shadow:0 6px 40px rgba(8,30,38,.12);padding:0 0 64px}
+.wrap{padding:0 18mm}
+/* brand title band */
+.band{background:var(--dark);color:#F1EDE6;padding:30px 18mm 26px;position:relative}
+.band .logo{display:flex;align-items:center;gap:.7rem;margin-bottom:1.4rem}
+.band .logo img,.band .logo .logo-img{height:26px}
+.band .logo-word{font-family:var(--heading);font-style:italic;font-weight:400;font-size:1.2rem;color:#F1EDE6;letter-spacing:.01em}
+.band .kicker{color:var(--accent);text-transform:uppercase;letter-spacing:.22em;font-size:.66rem;font-weight:600}
+.band h1{font-family:var(--heading);font-style:italic;font-weight:400;font-size:clamp(2rem,5vw,2.9rem);line-height:1.04;margin:.5rem 0 0}
+.band .sub{color:#A9BBC0;font-size:.92rem;margin:.7rem 0 0;max-width:60ch}
+.band .meta{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin-top:1.3rem;font-size:.74rem;color:#8CA1A7}
+.band .meta b{color:#E7DFD3;font-weight:600}
+/* sections */
+section{padding-top:26px}
+h2{font-family:var(--heading);font-style:italic;font-weight:400;font-size:1.7rem;line-height:1.1;margin:0 0 .2rem;color:var(--ink)}
+h2 .n{color:var(--accent);font-style:normal;font-family:var(--body);font-weight:600;font-size:1rem;margin-right:.6rem;letter-spacing:.05em}
+.srule{height:2px;background:var(--accent);width:46px;margin:.5rem 0 1rem}
+h3{font-size:1.02rem;margin:1.2rem 0 .4rem;color:var(--ink)}
+h4{font-family:var(--body);font-weight:600;font-size:.92rem;margin:0 0 .3rem;color:var(--accent-ink)}
+p{margin:.5rem 0;max-width:74ch}
+.lead{font-size:1.02rem;color:#22454F}
+.muted{color:var(--muted)} .gold{color:var(--accent-ink)}
+strong,b{color:var(--ink)}
+ul,ol{margin:.5rem 0;padding-left:1.2rem} li{margin:.25rem 0}
+a{color:var(--accent-ink)}
+/* eyebrow */
+.eyebrow{color:var(--accent-ink);text-transform:uppercase;letter-spacing:.18em;font-size:.68rem;font-weight:600;margin:0}
+/* numbered points */
+.points{display:grid;gap:.8rem;margin:1rem 0}
+.point{display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:start}
+.point .pn{font-family:var(--heading);font-style:italic;color:var(--accent);font-size:1.5rem;line-height:1}
+.point p{margin:.1rem 0}
+/* tables */
+table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.82rem}
+th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:2px solid var(--accent);font-weight:600}
+tbody tr:nth-child(even){background:#FBF7F0}
+td.num,th.num{text-align:right;white-space:nowrap}
+caption{caption-side:bottom;text-align:left;font-size:.72rem;color:var(--muted);margin-top:.4rem}
+/* scorecard */
+.score td:first-child{font-weight:600;width:120px}
+.lv{display:inline-block;font-family:var(--heading);font-style:italic;color:var(--accent-ink);font-size:1.1rem;min-width:2.4em}
+/* cards */
+.grid{display:grid;gap:1rem;margin:1rem 0}
+.g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:1fr 1fr}
+.card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);padding:.9rem 1rem}
+.card h4{margin-bottom:.25rem}
+.card p{font-size:.82rem;margin:.2rem 0 0}
+/* callout */
+.callout{background:#FBF2E4;border:1px solid var(--accent);border-left:4px solid var(--accent);padding:.9rem 1.1rem;margin:1rem 0;font-size:.92rem}
+.callout b{color:var(--accent-ink)}
+/* badges */
+.badge{display:inline-block;font-size:.6rem;text-transform:uppercase;letter-spacing:.05em;padding:.1rem .5rem;border-radius:100px;white-space:nowrap;font-weight:600}
+.b-crit{background:var(--alert);color:#fff}
+.b-high{border:1px solid var(--accent);color:var(--accent-ink)}
+.b-med{border:1px solid var(--muted);color:var(--muted)}
+/* status badges (content plan) */
+.b-new{background:var(--accent);color:#fff}
+.b-update{border:1px solid var(--accent);color:var(--accent-ink)}
+.b-refresh{border:1px solid var(--muted);color:var(--muted)}
+/* priority badges (backlink / E-E-A-T plan) */
+.p1{background:var(--accent);color:#fff}
+.p2{border:1px solid var(--accent);color:var(--accent-ink)}
+.p3{border:1px solid var(--muted);color:var(--muted)}
+.tag{display:inline-block;font-size:.62rem;letter-spacing:.04em;padding:.12rem .55rem;border-radius:100px;border:1px solid var(--line);color:var(--muted);background:#fff}
+.gap{color:var(--alert);font-weight:600}
+/* checklist marks (technical fix checklist) */
+.chk{width:14px;height:14px;border:1.6px solid var(--muted);border-radius:3px;display:inline-block;vertical-align:middle}
+/* legend row */
+.legend{display:flex;gap:1.3rem;flex-wrap:wrap;font-size:.74rem;color:var(--muted);align-items:center;margin:.5rem 0}
+/* page path and keyword cells */
+.pg{font-family:ui-monospace,Menlo,monospace;font-size:.72rem;color:var(--muted)}
+.kw{color:var(--ink)}
+/* content brief */
+.brief{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--panel);padding:.85rem 1rem;margin:.8rem 0}
+.brief .bh{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:.3rem}
+.brief .bt{font-weight:600;color:var(--ink);font-size:.95rem}
+.brief dl{margin:.4rem 0 0;display:grid;grid-template-columns:max-content 1fr;gap:.25rem .9rem;font-size:.79rem}
+.brief dt{color:var(--accent-ink);font-weight:600;white-space:nowrap}
+.brief dd{margin:0}
+/* footer */
+.foot{position:fixed;bottom:6mm;left:0;right:0;display:flex;justify-content:space-between;padding:0 18mm;font-size:.64rem;color:var(--muted);letter-spacing:.04em}
+.screenfoot{margin-top:30px;border-top:1px solid var(--line);padding-top:14px;font-size:.7rem;color:var(--muted);display:flex;justify-content:space-between}
+.avoid{break-inside:avoid;page-break-inside:avoid}
+@media (max-width:760px){.g3,.g2{grid-template-columns:1fr}.wrap{padding:0 6vw}.band{padding-left:6vw;padding-right:6vw}.foot{display:none}.brief dl{grid-template-columns:1fr}}
+@media print{
+  @page{size:A4 portrait;margin:14mm 0 16mm}
+  html,body{background:#fff}
+  .page{box-shadow:none;margin:0;max-width:none;padding:0}
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  .band{padding-top:6mm}
+  .screenfoot,.screenhide{display:none}
+  .foot{display:flex}
+  h2,h3,h4{break-after:avoid}
+  .brief{break-inside:avoid}
+  table{break-inside:auto} tr{break-inside:avoid}
+  thead{display:table-header-group}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="band">
+    <div class="logo">
+      <img class="logo-img" src="{{LOGO_SRC}}" alt="{{BRAND_NAME}}" onerror="this.style.display='none'">
+      <span class="logo-word">{{BRAND_NAME}}</span>
+    </div>
+    <p class="kicker">{{REPORT_KICKER}}</p>
+    <h1>{{REPORT_TITLE}}</h1>
+    <p class="sub">{{REPORT_SUB}}</p>
+    <div class="meta">
+      <span>Prepared for <b>{{PREPARED_FOR}}</b></span>
+      <span>By <b>{{PREPARED_BY}}</b></span>
+      <span>Date <b>{{DATE}}</b></span>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    {{CONTENT}}
+
+    <div class="screenfoot screenhide">
+      <span>{{BRAND_NAME}}</span>
+      <span>{{CLIENT_NAME}} &middot; Confidential</span>
+    </div>
+  </div>
+</div>
+
+<div class="foot"><span>{{BRAND_NAME}}</span><span>{{CLIENT_NAME}} &middot; Confidential</span></div>
+<script>
+// Hide the logo image when no src is provided so the wordmark shows instead.
+(function(){
+  var img=document.querySelector('.band .logo-img');
+  if(img && (!img.getAttribute('src') || img.getAttribute('src').indexOf('{{')===0)){img.style.display='none';}
+})();
+</script>
+</body>
+</html>

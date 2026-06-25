@@ -1,0 +1,11 @@
+{
+  "name": "getting-started",
+  "description": "One-time setup that captures business goals, audience, markets, brand voice, SEO and AEO constraints for any platform (Webflow, WordPress, Shopify, Framer, Next.js, custom code, static HTML). Saves to your AI config file for persistent guidelines across all skills.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofianbettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["config", "setup", "onboarding", "brand-voice", "seo", "aeo", "any-platform"]
+}

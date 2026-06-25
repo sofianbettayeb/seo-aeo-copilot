@@ -1,0 +1,11 @@
+{
+  "name": "refresh-content",
+  "description": "Refresh and optimize blog articles for SEO and AEO on any stack — updates dates, meta tags, facts, internal links, FAQs, and schema. Edits local source files (markdown/MDX/HTML/components) with a before/after diff, or outputs paste-ready recommendations when no repo is present.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofian-bettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["seo", "aeo", "blog", "content-refresh", "markdown", "local-files", "any-platform"]
+}

@@ -1,0 +1,148 @@
+{
+  "name": "seo-aeo-copilot",
+  "owner": {
+    "name": "Sofian Bettayeb",
+    "email": "contact@checklist-seo.com"
+  },
+  "metadata": {
+    "description": "Platform-agnostic SEO & AEO skills — audit, content refresh, optimization, keyword strategy, and reporting for any site (Webflow, WordPress, Shopify, Framer, Next.js, or custom code). No MCP required; GSC, PageSpeed, a CMS MCP, and Keywords Everywhere deepen the analysis when connected.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "getting-started",
+      "source": "./plugins/getting-started",
+      "description": "One-time setup that captures business goals, audience, markets, brand voice, SEO/AEO constraints, your platform, and (for code-based sites) the local repo path. Saves to your project's AI config file.",
+      "version": "2.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "setup",
+      "tags": ["config", "setup", "onboarding", "brand-voice", "seo", "aeo", "any-platform"]
+    },
+    {
+      "name": "refresh-content",
+      "source": "./plugins/refresh-content",
+      "description": "Refresh and optimize an existing article on any site — updates dates, meta, keywords, internal links, FAQ, and schema. In a repo it edits the source file with a diff; otherwise it outputs paste-ready recommendations.",
+      "version": "2.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "aeo", "blog", "content-refresh", "markdown", "local-files", "any-platform"]
+    },
+    {
+      "name": "click-recovery",
+      "source": "./plugins/click-recovery",
+      "description": "Find pages with high impressions but low CTR via GSC, propose better meta titles/descriptions, and apply them — editing local source files with a diff, or outputting a paste-ready table.",
+      "version": "2.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "ctr", "gsc", "google-search-console", "click-recovery", "local-files", "any-platform"]
+    },
+    {
+      "name": "monthly-report",
+      "source": "./plugins/monthly-report",
+      "description": "Monthly SEO report — what changed, why it matters, and what to do next. Performance overview, content analysis, technical health from a live crawl, and a prioritized action plan. GSC recommended.",
+      "version": "2.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "report", "monthly", "gsc", "analytics", "executive", "action-plan", "any-platform"]
+    },
+    {
+      "name": "weekly-report",
+      "source": "./plugins/weekly-report",
+      "description": "Weekly SEO pulse — what changed this week, how it tracks against the month, and what to do now. Same depth as monthly, weekly cadence. GSC recommended; degrades to crawl + baseline comparison.",
+      "version": "2.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "report", "weekly", "gsc", "analytics", "pulse", "action-plan", "any-platform"]
+    },
+    {
+      "name": "audit",
+      "source": "./plugins/audit",
+      "description": "Quick SEO & AEO audit from a public URL. Deterministic checks across 4 dimensions, reported as a plain-language status with prioritized opportunities. No MCP needed — works on any platform. No maturity score.",
+      "version": "1.2.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "aeo", "audit", "discovery", "dimensions", "any-platform"]
+    },
+    {
+      "name": "audit-deep",
+      "source": "./plugins/audit-deep",
+      "description": "Platform-agnostic deep SEO and AEO audit. Runs evidence-based checks across 4 dimensions (Content, Technical, Authority, Measurement), reports each as a plain-language status, organizes findings into 3 action buckets (Technical/Content/Authority) and 3 priority tiers, and forecasts business impact per opportunity (incremental clicks/month and equivalent ad spend). Folds in client documents (crawl exports, paid-media or keyword strategy, analytics), pauses for more inputs, then assembles a structured nine-section report, then generates per-bucket working documents (tech fix checklist, topic-cluster overview, editorial content-brief sheet, backlink-opportunity and E-E-A-T lists). Adds keyword research, topic clusters, a backlink profile, and sibling-subdomain discovery. GSC, PageSpeed, a CMS MCP, and Keywords Everywhere are optional enrichments, none required. No maturity score.",
+      "version": "2.5.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "aeo", "audit", "deep", "business-impact", "forecast", "keyword-research", "content-gap", "topic-clusters", "backlinks", "gsc", "platform-agnostic"]
+    },
+    {
+      "name": "deliverables",
+      "source": "./plugins/deliverables",
+      "description": "Turn an audit's working documents into branded, PDF-ready HTML reports. Renders the deep audit and its companion docs (technical fix checklist, keyword and content plan, backlink and E-E-A-T plan) into clean, print-ready report files using a brand-agnostic template. Prompts for branding (logo, colours, fonts); falls back to a neutral look. One self-contained HTML file per report, A4 portrait, Cmd+P to PDF.",
+      "version": "1.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "aeo", "deliverables", "report", "client-deliverable", "pdf", "branding", "html", "any-platform"]
+    },
+    {
+      "name": "content-model",
+      "source": "./plugins/content-model",
+      "description": "Audit or design a content field model for SEO/AEO on any system — markdown/MDX front-matter, a headless CMS, a code-defined content type, or a traditional CMS. Scores fields across Core, Content, Authority, Enhancement, and Social groups.",
+      "version": "2.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "aeo", "content-model", "front-matter", "schema", "markdown", "headless-cms", "any-platform"]
+    },
+    {
+      "name": "keywords-opportunity",
+      "source": "./plugins/keywords-opportunity",
+      "description": "Discover keyword opportunities using GSC and Keywords Everywhere — surfaces striking distance keywords, uncovers new opportunities, and researches keywords for new pages, products, or topic clusters before you create them.",
+      "version": "1.2.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "keywords", "keyword-research", "gsc", "keywords-everywhere", "striking-distance", "any-platform"]
+    },
+    {
+      "name": "aeo-optimize",
+      "source": "./plugins/aeo-optimize",
+      "description": "Transform any page or article into an AEO-ready answer — query alignment, direct answers, question-based structure, FAQ + schema markup, internal linking. Edits the local source file with a diff, or outputs paste-ready blocks.",
+      "version": "2.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "aeo",
+      "tags": ["aeo", "answer-engine-optimization", "faq", "schema", "json-ld", "structured-data", "content-optimization", "local-files", "any-platform"]
+    },
+    {
+      "name": "write-blog",
+      "source": "./plugins/write-blog",
+      "description": "Create a new SEO and AEO-optimized article as a local source file — keyword expansion, outline approval, AI tell-tales check, humanizer pass, AEO audit, then writes the file in your project's format (or outputs a draft).",
+      "version": "2.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "content",
+      "tags": ["seo", "aeo", "blog", "content", "write", "markdown", "humanizer", "local-files", "any-platform"]
+    },
+    {
+      "name": "topic-map",
+      "source": "./plugins/topic-map",
+      "description": "Turn keyword exports, URL lists, and GSC data into a structured topic map — per-cluster keyword ownership tables, product page tracking, editorial→product linking status, gap analysis, cannibalization detection, and a 90-day editorial calendar.",
+      "version": "1.2.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "keyword-map", "topic-clusters", "content-strategy", "gap-analysis", "pillar-pages", "keyword-ownership", "editorial-calendar", "gsc", "any-platform"]
+    },
+    {
+      "name": "ai-visibility",
+      "source": "./plugins/ai-visibility",
+      "description": "Baseline AI visibility report. Pulls AEO Copilot data (ChatGPT, Claude, Perplexity, Google AIO) and renders a single-page client-ready HTML diagnostic with evidence-backed findings, per-LLM scorecards, topic performance, competitor share-of-voice, and external source influence. Print-styled for Cmd+P → PDF.",
+      "version": "1.3.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "aeo",
+      "tags": ["aeo", "ai-visibility", "baseline", "report", "chatgpt", "claude", "perplexity", "ai-overview", "diagnostic", "client-deliverable", "source-influence"]
+    },
+    {
+      "name": "aeo-onboard",
+      "source": "./plugins/aeo-onboard",
+      "description": "Bootstrap a brand in AEO Copilot end-to-end from a URL — analyze the site, create the brand, run the technical audit, design 5 buyer-journey topics with listicle prompts, and trigger the first tracking cycle. Hands off to /ai-visibility for the baseline report.",
+      "version": "1.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "aeo",
+      "tags": ["aeo", "onboarding", "brand-setup", "topic-design", "tech-audit", "tracking", "client-bootstrap"]
+    }
+  ]
+}

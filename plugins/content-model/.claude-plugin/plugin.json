@@ -1,0 +1,11 @@
+{
+  "name": "content-model",
+  "description": "Review or scaffold an SEO/AEO content model on any stack — scores an existing content model (markdown/MDX front-matter, a code-defined content type, or a connected headless/traditional CMS) against a recommended five-group field schema with weighted scoring, or proposes a complete model (front-matter template + JSON-LD, a TS type, or CMS fields). Local files are the backbone; a CMS MCP is optional.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofianbettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["seo", "aeo", "content-model", "front-matter", "schema", "markdown", "headless-cms", "any-platform"]
+}

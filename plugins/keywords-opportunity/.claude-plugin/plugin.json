@@ -1,0 +1,11 @@
+{
+  "name": "keywords-opportunity",
+  "description": "Discover keyword opportunities using GSC and Keywords Everywhere — surfaces striking distance keywords, uncovers new opportunities, and researches keywords for new pages, products, or topic clusters before you create them.",
+  "version": "1.2.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofianbettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["any-platform", "seo", "keywords", "keyword-research", "gsc", "google-search-console", "keywords-everywhere", "striking-distance"]
+}

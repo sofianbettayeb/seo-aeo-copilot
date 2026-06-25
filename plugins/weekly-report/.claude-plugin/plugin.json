@@ -1,0 +1,11 @@
+{
+  "name": "weekly-report",
+  "description": "Weekly SEO pulse for any site or stack — what changed this week, how it tracks against the month, and what to do now. Compares Week W vs W-1 using GSC data (or a live crawl + baseline when GSC is absent), scores recommendations by impact/confidence/effort, and outputs an actionable report.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofian-bettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["seo", "aeo", "report", "weekly", "gsc", "analytics", "pulse", "action-plan", "any-platform"]
+}

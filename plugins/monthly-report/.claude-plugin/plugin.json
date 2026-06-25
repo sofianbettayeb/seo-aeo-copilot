@@ -1,0 +1,11 @@
+{
+  "name": "monthly-report",
+  "description": "Monthly SEO report on any stack — what changed, why it matters, and what to do next. Compares Month M vs M-1 with a 3-month trend, audits metadata across a live crawl or local source files, and outputs a prioritized action plan. GSC is the primary data source; degrades gracefully to crawl + baseline when GSC is absent. Read-only reporting, built for founders and executives.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofianbettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["seo", "report", "monthly", "gsc", "analytics", "executive", "action-plan", "any-platform"]
+}

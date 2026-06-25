@@ -1,0 +1,11 @@
+{
+  "name": "aeo-optimize",
+  "description": "Transform any page into an AEO-ready answer — query alignment, direct answers, question-based structure, FAQ + JSON-LD schema, and internal linking. Works on any site or stack: edits local content files directly (Markdown, .tsx/.jsx, .html) with a before/after diff, or outputs ready-to-paste blocks when only a URL is available.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofianbettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["aeo", "answer-engine-optimization", "seo", "faq", "schema", "json-ld", "structured-data", "content-optimization", "any-platform", "local-files"]
+}

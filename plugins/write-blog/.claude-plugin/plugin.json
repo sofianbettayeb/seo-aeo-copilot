@@ -1,0 +1,11 @@
+{
+  "name": "write-blog",
+  "description": "Create a new SEO and AEO-optimized blog article on any stack — brief intake, article-format recommendation, keyword expansion, outline approval, humanized draft writing, AEO audit pass, and a new local source file (markdown/MDX/HTML/component) written with a preview, or a paste-ready draft when no repo is present.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofian-bettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["seo", "aeo", "blog", "content", "write", "markdown", "local-files", "any-platform"]
+}

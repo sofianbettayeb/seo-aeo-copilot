@@ -1,0 +1,11 @@
+{
+  "name": "audit",
+  "description": "Quick SEO & AEO audit from a public URL. Deterministic checks across 4 dimensions, reported as a plain-language status with prioritized opportunities. No maturity score.",
+  "version": "1.2.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofianbettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["seo", "aeo", "audit", "any-platform", "discovery", "dimensions"]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "click-recovery",
+  "description": "Find pages search engines trust but users ignore — high impressions, low CTR — and get a prioritized list of titles and meta descriptions to rewrite. Edits the local source file (front-matter / meta tags) with a before/after diff, or outputs a paste-ready table when only URLs are available.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofian-bettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["seo", "ctr", "gsc", "google-search-console", "click-recovery", "serp", "local-files", "any-platform"]
+}

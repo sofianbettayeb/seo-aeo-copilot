@@ -1,0 +1,11 @@
+{
+  "name": "audit-deep",
+  "description": "Platform-agnostic deep SEO and AEO audit. Runs evidence-based checks across 4 dimensions (Content, Technical, Authority, Measurement), reports each as a plain-language status, organizes findings into 3 action buckets (Technical/Content/Authority) and 3 priority tiers, and forecasts business impact per opportunity (incremental clicks/month and equivalent ad spend). Folds in client documents (crawl exports, paid-media or keyword strategy, analytics), pauses for more inputs, then assembles a structured nine-section report, then generates per-bucket working documents (tech fix checklist, topic-cluster overview, editorial content-brief sheet, backlink-opportunity and E-E-A-T lists). Adds keyword research, topic clusters, a backlink profile, and sibling-subdomain discovery. Works on any site. GSC, PageSpeed, a CMS MCP, and Keywords Everywhere are optional enrichments. No maturity score.",
+  "version": "2.5.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofianbettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["seo", "aeo", "audit", "deep", "business-impact", "forecast", "keyword-research", "content-gap", "topic-clusters", "backlinks", "gsc", "platform-agnostic"]
+}
