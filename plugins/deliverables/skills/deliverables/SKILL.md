@@ -1,6 +1,6 @@
 ---
 name: deliverables
-version: "1.0"
+version: "1.1"
 description: |
   Turn an audit's working documents into branded, PDF-ready HTML reports. Reads the deep audit and its companion docs for a {domain} (technical fix checklist, topic clusters and content briefs, backlink and E-E-A-T lists) and renders each into a clean, print-ready report using a brand-agnostic template (template.html). Prompts once for branding (brand name, logo, accent colour, title-band colour, fonts) and falls back to a neutral, unbranded look. Output is one self-contained HTML file per report, A4 portrait, Cmd+P to PDF. Works on any platform.
   Triggers: deliverables, build deliverables, client reports, branded report, pdf report, report pack, package the audit.
@@ -11,7 +11,14 @@ description: |
 
 # Deliverables Skill
 
-Packages the raw working documents from an audit into polished, client-ready HTML reports. The reports are light-background, print-to-PDF documents that share one design system. The branding is **not** baked in: the skill asks for it each run (or reuses what is saved in config) and otherwise renders a clean, neutral document.
+Packages the raw working documents from an audit into polished, client-ready HTML reports. The reports are light-background, print-to-PDF documents that share one design system.
+
+Four things are non-negotiable on every deliverable this skill produces:
+
+1. **Humanized content.** Run the humanizer pass before finalizing (draft, AI-tells audit, final rewrite). No em dashes, no emojis, no internal tooling or workflow references.
+2. **On brand.** Apply the user's default brand profile automatically if one is set (see Phase 1); only prompt for branding when no default exists.
+3. **Clear background.** Light/white background documents, readable and ink-friendly. Never a dark style for a read-or-print document.
+4. **PDF-ready.** Exports cleanly with Cmd+P (A4 portrait, backgrounds print, sensible page breaks, one self-contained file). This is built into the template.
 
 This skill does not analyze the site. It formats work that already exists. Run `/audit:deep` first; this turns its output into something you can send a client.
 
@@ -63,12 +70,12 @@ Show the matched set and ask: "Build all of these, or a subset?" Default to all 
 
 ---
 
-## Phase 1: BRANDING (always prompt)
+## Phase 1: BRANDING (apply the default, prompt only if none)
 
-Branding is never hardcoded. Each run, apply branding in this order:
+Branding is never hardcoded into the template. Resolve it per run in this order:
 
-1. **Config**: if `.claude/seo-copilot-config.json` has a `branding` block, show it and ask "Use this branding, or change it?"
-2. **Prompt** (if no config branding, or the user wants to change it). Ask for these, all optional, with the neutral default shown:
+1. **Default brand profile**: check the user's standing instructions (global or project CLAUDE.md) and the `.claude/seo-copilot-config.json` `branding` block. If a default brand is set there, **apply it automatically without asking**, and state which brand you used (for example "Styled to {brand}."). Read the brand's source-of-truth file if one is referenced, so the colours, fonts, and logo are accurate. Do not prompt.
+2. **Prompt only if there is no default**, or if the user named a different brand for this deliverable. Ask for these, all optional, with the neutral fallback shown:
 
    | Field | Maps to | Default if skipped |
    |-------|---------|--------------------|

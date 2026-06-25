@@ -75,8 +75,8 @@
     {
       "name": "deliverables",
       "source": "./plugins/deliverables",
-      "description": "Turn an audit's working documents into branded, PDF-ready HTML reports. Renders the deep audit and its companion docs (technical fix checklist, keyword and content plan, backlink and E-E-A-T plan) into clean, print-ready report files using a brand-agnostic template. Prompts for branding (logo, colours, fonts); falls back to a neutral look. One self-contained HTML file per report, A4 portrait, Cmd+P to PDF.",
-      "version": "1.0.0",
+      "description": "Turn an audit's working documents into branded, PDF-ready HTML reports. Renders the deep audit and its companion docs (technical fix checklist, keyword and content plan, backlink and E-E-A-T plan) into clean, print-ready report files using a brand-agnostic template. Humanized content, light background, and PDF export are built in. Applies a saved default brand automatically, or prompts when none is set. One self-contained HTML file per report, A4 portrait, Cmd+P to PDF.",
+      "version": "1.1.0",
       "author": { "name": "Sofian Bettayeb" },
       "category": "seo",
       "tags": ["seo", "aeo", "deliverables", "report", "client-deliverable", "pdf", "branding", "html", "any-platform"]
