@@ -1,11 +1,11 @@
 {
   "name": "deliverables",
-  "description": "Turn an audit's working documents into branded, PDF-ready HTML reports. Renders the deep audit and its companion docs (technical fix checklist, keyword and content plan, backlink and E-E-A-T plan) into clean, print-ready report files using a brand-agnostic template. Prompts for branding (logo, colours, fonts) and falls back to a neutral, unbranded look. Output is one self-contained HTML file per report, A4 portrait, Cmd+P to PDF. Works alongside /audit:deep on any platform.",
-  "version": "1.1.0",
+  "description": "Produce a branded, PDF-ready client deliverable in the format you ask for: a multi-page report, a single-page one-pager, a 16:9 slide deck, or a prose document/memo. Pulls content from an audit and its companion working docs (or from content you supply) and renders it with a shared branding system and component library across all four formats. Applies the default brand automatically and falls back to a neutral look. Output is one self-contained HTML file per deliverable, Cmd+P to PDF. Works alongside /audit:deep on any platform.",
+  "version": "2.0.0",
   "author": {
     "name": "Sofian Bettayeb"
   },
   "homepage": "https://github.com/sofianbettayeb/seo-aeo-copilot",
   "license": "MIT",
-  "keywords": ["seo", "aeo", "deliverables", "report", "client-deliverable", "pdf", "branding", "html", "any-platform"]
+  "keywords": ["seo", "aeo", "deliverables", "report", "one-pager", "deck", "presentation", "document", "memo", "client-deliverable", "pdf", "branding", "html", "any-platform"]
 }
