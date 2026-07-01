@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{REPORT_TITLE}}</title>
+
+<!--
+  DOCUMENT FORMAT - A4 portrait, prose-first. For briefs, strategy memos, proposal letters, scope notes.
+  1. Open in any browser to read. To make a PDF: Cmd/Ctrl+P, "Save as PDF", Layout "Portrait", tick "Background graphics". Chrome gives the best result.
+  2. This is a reading document: a light masthead, then headings and prose. Use the .sign block at the end for a signature or contact line. Tables and callouts are available but use them sparingly.
+  3. Branding lives in the :root BRANDING block. Override those variables to apply a brand.
+-->
+
+<style>
+:root{
+  /* ===== BRANDING (override these to apply a brand) ===== */
+  --accent:#475569; --accent-ink:#334155;
+  --dark:#1F2937;
+  --heading:Georgia,"Times New Roman",serif;
+  --body:-apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  /* ===== END BRANDING ===== */
+
+  --ink:#1A1A1A; --bg:#FFFFFF; --paper:#FFFFFF; --panel:#F4EFE6;
+  --muted:#6B7B80; --line:#E5DCCD; --alert:#B5573F; --good:#3E7D55;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#F2EDE4;color:var(--ink);font-family:var(--body);font-size:14.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.page{max-width:210mm;margin:24px auto;background:var(--paper);box-shadow:0 6px 40px rgba(8,30,38,.12);padding:0 0 30mm}
+.wrap{padding:0 24mm}
+/* light masthead (not a heavy band) */
+.masthead{padding:24mm 24mm 0;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.masthead .logo{display:flex;align-items:center;gap:.6rem}
+.masthead .logo img,.masthead .logo .logo-img{height:24px}
+.masthead .logo-word{font-family:var(--heading);font-style:italic;font-weight:400;font-size:1.1rem;color:var(--ink)}
+.masthead .ref{text-align:right;font-size:.72rem;color:var(--muted);line-height:1.5}
+.masthead .ref b{color:var(--ink);font-weight:600}
+.rule{height:2px;background:var(--accent);width:100%;margin:14px 0 0}
+/* title block */
+.titleblock{padding:22px 24mm 0}
+.titleblock .kicker{color:var(--accent-ink);text-transform:uppercase;letter-spacing:.2em;font-size:.66rem;font-weight:600;margin:0}
+.titleblock h1{font-family:var(--heading);font-style:italic;font-weight:400;font-size:2.4rem;line-height:1.06;margin:.4rem 0 0;color:var(--ink)}
+.titleblock .sub{color:#3A3A3A;font-size:.98rem;margin:.6rem 0 0;max-width:64ch}
+.titleblock .meta{display:flex;flex-wrap:wrap;gap:.3rem 1.6rem;margin-top:1rem;font-size:.74rem;color:var(--muted)}
+.titleblock .meta b{color:var(--ink);font-weight:600}
+/* prose */
+h2{font-family:var(--heading);font-style:italic;font-weight:400;font-size:1.45rem;line-height:1.12;margin:1.6rem 0 .3rem;color:var(--ink)}
+h3{font-size:1.05rem;margin:1.2rem 0 .3rem;color:var(--ink)}
+h4{font-family:var(--body);font-weight:600;font-size:.92rem;margin:1rem 0 .25rem;color:var(--accent-ink)}
+p{margin:.6rem 0;max-width:72ch}
+.lead{font-size:1.08rem;color:#2A2A2A;margin-top:.4rem}
+.muted{color:var(--muted)} strong,b{color:var(--ink)} a{color:var(--accent-ink)}
+ul,ol{margin:.6rem 0;padding-left:1.3rem;max-width:72ch} li{margin:.3rem 0}
+blockquote{margin:1rem 0;padding:.2rem 0 .2rem 1.1rem;border-left:3px solid var(--accent);color:#33474D;font-style:italic}
+/* callout */
+.callout{background:#FBF2E4;border:1px solid var(--accent);border-left:4px solid var(--accent);padding:.9rem 1.1rem;margin:1rem 0;font-size:.94rem}
+.callout b{color:var(--accent-ink)}
+/* tables (used sparingly) */
+table{width:100%;border-collapse:collapse;margin:.9rem 0;font-size:.82rem}
+th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:2px solid var(--accent);font-weight:600}
+td.num,th.num{text-align:right;white-space:nowrap}
+.badge{display:inline-block;font-size:.6rem;text-transform:uppercase;letter-spacing:.05em;padding:.1rem .5rem;border-radius:100px;white-space:nowrap;font-weight:600}
+.p1{background:var(--accent);color:#fff}.p2{border:1px solid var(--accent);color:var(--accent-ink)}.p3{border:1px solid var(--muted);color:var(--muted)}
+/* signature / contact block */
+.sign{margin:2.4rem 0 0;padding:1.2rem 0 0;border-top:1px solid var(--line)}
+.sign .by{font-family:var(--heading);font-style:italic;font-size:1.2rem;color:var(--ink)}
+.sign .role{font-size:.82rem;color:var(--muted);margin-top:.2rem}
+.sign .contact{font-size:.82rem;color:var(--accent-ink);margin-top:.5rem}
+/* footer */
+.foot{position:fixed;bottom:8mm;left:0;right:0;display:flex;justify-content:space-between;padding:0 24mm;font-size:.64rem;color:var(--muted);letter-spacing:.04em}
+.screenfoot{margin-top:26px;border-top:1px solid var(--line);padding-top:12px;font-size:.7rem;color:var(--muted);display:flex;justify-content:space-between}
+.avoid{break-inside:avoid;page-break-inside:avoid}
+@media print{
+  @page{size:A4 portrait;margin:16mm 0 18mm}
+  html,body{background:#fff}
+  .page{box-shadow:none;margin:0;max-width:none;padding:0}
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  .masthead{padding-top:0}
+  .screenfoot,.screenhide{display:none}
+  .foot{display:flex}
+  h2,h3,h4{break-after:avoid}
+  table{break-inside:auto} tr{break-inside:avoid} thead{display:table-header-group}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <div class="logo">
+      <img class="logo-img" src="{{LOGO_SRC}}" alt="{{BRAND_NAME}}" onerror="this.style.display='none'">
+      <span class="logo-word">{{BRAND_NAME}}</span>
+    </div>
+    <div class="ref">
+      <div>Prepared for <b>{{PREPARED_FOR}}</b></div>
+      <div>{{DATE}}</div>
+    </div>
+  </div>
+  <div class="wrap"><div class="rule"></div></div>
+
+  <div class="titleblock">
+    <p class="kicker">{{REPORT_KICKER}}</p>
+    <h1>{{REPORT_TITLE}}</h1>
+    <p class="sub">{{REPORT_SUB}}</p>
+    <div class="meta">
+      <span>By <b>{{PREPARED_BY}}</b></span>
+      <span>Date <b>{{DATE}}</b></span>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    {{CONTENT}}
+
+    <div class="screenfoot screenhide">
+      <span>{{BRAND_NAME}}</span>
+      <span>{{CLIENT_NAME}} &middot; Confidential</span>
+    </div>
+  </div>
+</div>
+
+<div class="foot"><span>{{BRAND_NAME}}</span><span>{{CLIENT_NAME}} &middot; Confidential</span></div>
+<script>
+(function(){
+  var img=document.querySelector('.masthead .logo-img');
+  if(img && (!img.getAttribute('src') || img.getAttribute('src').indexOf('{{')===0)){img.style.display='none';}
+})();
+</script>
+</body>
+</html>

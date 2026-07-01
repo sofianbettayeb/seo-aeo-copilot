@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{REPORT_TITLE}}</title>
+
+<!--
+  ONE-PAGER FORMAT - fits on a single A4 portrait page.
+  1. Open in any browser to read. To make a PDF: Cmd/Ctrl+P, "Save as PDF", Layout "Portrait", tick "Background graphics". Chrome gives the best result.
+  2. This must stay to ONE page. Keep it tight: a compact header band, a lead line, and a two-column grid of short blocks. If content overflows, cut it or move it to a Report.
+  3. Branding lives in the :root BRANDING block. Override those variables to apply a brand.
+-->
+
+<style>
+:root{
+  /* ===== BRANDING (override these to apply a brand) ===== */
+  --accent:#475569; --accent-ink:#334155;
+  --dark:#1F2937;
+  --heading:Georgia,"Times New Roman",serif;
+  --body:-apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  /* ===== END BRANDING ===== */
+
+  --ink:#10262E; --bg:#FFFFFF; --paper:#FFFFFF; --panel:#F4EFE6;
+  --muted:#6B7B80; --line:#E5DCCD; --alert:#B5573F; --good:#3E7D55;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:12px;line-height:1.42;-webkit-font-smoothing:antialiased}
+.page{max-width:210mm;margin:24px auto;background:var(--paper);box-shadow:0 6px 40px rgba(8,30,38,.12);padding:0 0 18mm}
+.wrap{padding:0 16mm}
+/* compact brand band */
+.band{background:var(--dark);color:#F1EDE6;padding:18px 16mm 16px;position:relative}
+.band .logo{display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem}
+.band .logo img,.band .logo .logo-img{height:22px}
+.band .logo-word{font-family:var(--heading);font-style:italic;font-weight:400;font-size:1.05rem;color:#F1EDE6;letter-spacing:.01em}
+.band .kicker{color:var(--accent);text-transform:uppercase;letter-spacing:.22em;font-size:.62rem;font-weight:600}
+.band h1{font-family:var(--heading);font-style:italic;font-weight:400;font-size:1.9rem;line-height:1.04;margin:.35rem 0 0}
+.band .sub{color:#A9BBC0;font-size:.84rem;margin:.45rem 0 0;max-width:70ch}
+.band .meta{display:flex;flex-wrap:wrap;gap:.35rem 1.4rem;margin-top:.9rem;font-size:.68rem;color:#8CA1A7}
+.band .meta b{color:#E7DFD3;font-weight:600}
+/* lead line */
+.lead{font-size:.96rem;color:#22454F;margin:14px 0 6px}
+.muted{color:var(--muted)} .gold{color:var(--accent-ink)}
+strong,b{color:var(--ink)}
+a{color:var(--accent-ink)}
+.eyebrow{color:var(--accent-ink);text-transform:uppercase;letter-spacing:.18em;font-size:.64rem;font-weight:600;margin:0 0 .2rem}
+h2{font-family:var(--heading);font-style:italic;font-weight:400;font-size:1.15rem;line-height:1.1;margin:0 0 .3rem;color:var(--ink)}
+h2 .n{color:var(--accent);font-style:normal;font-family:var(--body);font-weight:600;font-size:.8rem;margin-right:.45rem;letter-spacing:.05em}
+.srule{height:2px;background:var(--accent);width:38px;margin:.35rem 0 .6rem}
+h4{font-family:var(--body);font-weight:600;font-size:.82rem;margin:0 0 .2rem;color:var(--accent-ink)}
+p{margin:.35rem 0;max-width:74ch}
+ul,ol{margin:.35rem 0;padding-left:1.1rem} li{margin:.18rem 0}
+/* two-column body grid */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px 22px;margin:10px 0}
+.full{grid-column:1 / -1}
+.block{break-inside:avoid}
+/* compact cards */
+.card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);padding:.6rem .75rem;margin:.4rem 0}
+.card h4{margin-bottom:.15rem}
+.card p{font-size:.78rem;margin:.15rem 0 0}
+/* stat row */
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin:8px 0}
+.stat{flex:1 1 0;min-width:120px;background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--accent);padding:.55rem .7rem}
+.stat .v{font-family:var(--heading);font-style:italic;font-size:1.5rem;color:var(--accent-ink);line-height:1}
+.stat .l{font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-top:.25rem}
+/* callout */
+.callout{background:#FBF2E4;border:1px solid var(--accent);border-left:4px solid var(--accent);padding:.6rem .8rem;margin:.5rem 0;font-size:.84rem}
+.callout b{color:var(--accent-ink)}
+/* tables (compact) */
+table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.74rem}
+th,td{text-align:left;padding:.32rem .45rem;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:2px solid var(--accent);font-weight:600}
+td.num,th.num{text-align:right;white-space:nowrap}
+/* badges */
+.badge{display:inline-block;font-size:.56rem;text-transform:uppercase;letter-spacing:.05em;padding:.08rem .45rem;border-radius:100px;white-space:nowrap;font-weight:600}
+.b-crit{background:var(--alert);color:#fff}
+.b-high{border:1px solid var(--accent);color:var(--accent-ink)}
+.b-med{border:1px solid var(--muted);color:var(--muted)}
+.p1{background:var(--accent);color:#fff}.p2{border:1px solid var(--accent);color:var(--accent-ink)}.p3{border:1px solid var(--muted);color:var(--muted)}
+.pg{font-family:ui-monospace,Menlo,monospace;font-size:.68rem;color:var(--muted)}
+/* numbered points (compact) */
+.points{display:grid;gap:.5rem;margin:.6rem 0}
+.point{display:grid;grid-template-columns:auto 1fr;gap:.6rem;align-items:start}
+.point .pn{font-family:var(--heading);font-style:italic;color:var(--accent);font-size:1.2rem;line-height:1}
+.point p{margin:.05rem 0;font-size:.8rem}
+/* footer */
+.foot{position:fixed;bottom:6mm;left:0;right:0;display:flex;justify-content:space-between;padding:0 16mm;font-size:.6rem;color:var(--muted);letter-spacing:.04em}
+.screenfoot{margin-top:18px;border-top:1px solid var(--line);padding-top:10px;font-size:.66rem;color:var(--muted);display:flex;justify-content:space-between}
+@media print{
+  @page{size:A4 portrait;margin:0}
+  html,body{background:#fff}
+  .page{box-shadow:none;margin:0;max-width:none;padding:0 0 14mm}
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  .screenfoot,.screenhide{display:none}
+  .foot{display:flex}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="band">
+    <div class="logo">
+      <img class="logo-img" src="{{LOGO_SRC}}" alt="{{BRAND_NAME}}" onerror="this.style.display='none'">
+      <span class="logo-word">{{BRAND_NAME}}</span>
+    </div>
+    <p class="kicker">{{REPORT_KICKER}}</p>
+    <h1>{{REPORT_TITLE}}</h1>
+    <p class="sub">{{REPORT_SUB}}</p>
+    <div class="meta">
+      <span>Prepared for <b>{{PREPARED_FOR}}</b></span>
+      <span>By <b>{{PREPARED_BY}}</b></span>
+      <span>Date <b>{{DATE}}</b></span>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    {{CONTENT}}
+
+    <div class="screenfoot screenhide">
+      <span>{{BRAND_NAME}}</span>
+      <span>{{CLIENT_NAME}} &middot; Confidential</span>
+    </div>
+  </div>
+</div>
+
+<div class="foot"><span>{{BRAND_NAME}}</span><span>{{CLIENT_NAME}} &middot; Confidential</span></div>
+<script>
+(function(){
+  var img=document.querySelector('.band .logo-img');
+  if(img && (!img.getAttribute('src') || img.getAttribute('src').indexOf('{{')===0)){img.style.display='none';}
+})();
+</script>
+</body>
+</html>

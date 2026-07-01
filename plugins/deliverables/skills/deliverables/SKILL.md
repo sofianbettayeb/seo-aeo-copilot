@@ -1,160 +1,175 @@
 ---
 name: deliverables
-version: "1.1"
+version: "2.0"
 description: |
-  Turn an audit's working documents into branded, PDF-ready HTML reports. Reads the deep audit and its companion docs for a {domain} (technical fix checklist, topic clusters and content briefs, backlink and E-E-A-T lists) and renders each into a clean, print-ready report using a brand-agnostic template (template.html). Prompts once for branding (brand name, logo, accent colour, title-band colour, fonts) and falls back to a neutral, unbranded look. Output is one self-contained HTML file per report, A4 portrait, Cmd+P to PDF. Works on any platform.
-  Triggers: deliverables, build deliverables, client reports, branded report, pdf report, report pack, package the audit.
-  Requires: an existing audit and/or its companion working docs in the project (run /audit:deep first). No MCP servers needed.
-  Workflow: Discover sources -> Prompt for branding -> Build one report per source -> Save -> Open -> Log.
+  Produce a branded, PDF-ready client deliverable in the format you ask for. You say what you need (a report, a one-pager, a presentation/deck, or a document/memo) and what it is about, and this renders it into a clean, print-ready file using the matching format template under formats/. Pulls content from existing working docs for a {domain} (a deep audit, topic clusters, content briefs, backlink and E-E-A-T lists) or from content you provide directly. Applies the default brand automatically (TitanX unless told otherwise) and falls back to a neutral, unbranded look. Output is one self-contained HTML file per deliverable, Cmd+P to PDF. Works on any platform.
+  Triggers: deliverables, build a deliverable, client report, one-pager, one pager, presentation, slide deck, deck, pitch deck, document, memo, brief, strategy memo, proposal, scope sheet, branded report, pdf report, package the audit.
+  Requires: nothing mandatory. Content can come from existing working docs (run /audit:deep first for an audit-based deliverable) or be supplied directly. No MCP servers needed.
+  Workflow: Choose format and source -> Apply branding -> Render into the format template -> Save -> Open -> Log.
   Command: /deliverables
 ---
 
 # Deliverables Skill
 
-Packages the raw working documents from an audit into polished, client-ready HTML reports. The reports are light-background, print-to-PDF documents that share one design system.
+Turns content into a polished, client-ready file in whatever format the moment calls for: a multi-page report, a single-page one-pager, a slide deck, or a prose document. Every output is a light-background, print-to-PDF file, and all four formats share one branding system and one component library, so a report and a deck for the same client look like they came from the same studio.
 
 Four things are non-negotiable on every deliverable this skill produces:
 
 1. **Humanized content.** Run the humanizer pass before finalizing (draft, AI-tells audit, final rewrite). No em dashes, no emojis, no internal tooling or workflow references.
 2. **On brand.** Apply the user's default brand profile automatically if one is set (see Phase 1); only prompt for branding when no default exists.
-3. **Clear background.** Light/white background documents, readable and ink-friendly. Never a dark style for a read-or-print document.
-4. **PDF-ready.** Exports cleanly with Cmd+P (A4 portrait, backgrounds print, sensible page breaks, one self-contained file). This is built into the template.
+3. **Clear background.** Light/white background documents, readable and ink-friendly. Never a dark style for a read-or-print document (a deck cover band is the one allowed dark accent).
+4. **PDF-ready.** Exports cleanly with Cmd+P. Each format template has its own correct print setup baked in (portrait for report/one-pager/document, landscape for deck).
 
-This skill does not analyze the site. It formats work that already exists. Run `/audit:deep` first; this turns its output into something you can send a client.
+This skill formats content; it does not analyze a site. For an audit-based deliverable, run `/audit:deep` first and point this at its output. For anything else, give it the content (a draft, notes, or a working doc) and the format.
 
 ## Prerequisites
 
-- **The template**: `template.html` in this skill folder (brand-agnostic, tokenized). Never edit a brand into the template itself; branding is applied per run via the BRANDING variables.
-- **Source documents**: the audit report and/or its companion working docs for the `{domain}` (see Phase 0). If none are found, the skill says so and points to `/audit:deep`.
+- **The format templates**: the `formats/` folder in this skill holds one template per format, all brand-agnostic and tokenized:
+  - `formats/report.html` - multi-page A4 portrait
+  - `formats/one-pager.html` - single A4 portrait page
+  - `formats/deck.html` - 16:9 landscape slides
+  - `formats/document.html` - A4 portrait, prose/memo
+  Never edit a brand into a template; branding is applied per run via the BRANDING variables.
+- **Content**: either existing working docs for the `{domain}` (see Phase 0) or content the user supplies in the request.
 - **No MCP servers needed.** This is a local formatting step.
 
-This skill is read-only on the source docs. It writes new HTML files; it never edits the source markdown or CSV.
+This skill is read-only on the source docs. It writes new HTML files; it never edits source markdown or CSV.
 
 ---
 
 ## Critical Guards
 
-GUARD - **No source documents found:**
-- If neither a deep-audit report nor any companion working doc exists for `{domain}`: "No audit documents found for {domain}. Run `/audit:deep {url}` first, then `/deliverables`." Stop.
+GUARD - **Format template missing:**
+- If the chosen `formats/*.html` cannot be read: note it and stop. Do not invent a template inline.
 
-GUARD - **Template missing:**
-- If `template.html` cannot be read: note it and stop. Do not invent a template inline.
+GUARD - **No content to render:**
+- If the user asked for an audit-based deliverable but no audit doc or working doc exists for `{domain}`, and they have not supplied content: say so and point to `/audit:deep {url}`, or ask them to provide the content. Do not fabricate findings.
+
+GUARD - **One-pager overflow:**
+- A one-pager must fit on a single page. If the content cannot fit, say so and offer either to trim it or to switch that deliverable to the report format. Never ship a one-pager that spills to a second page.
 
 GUARD - **User requests abort:**
 - Confirm, exit cleanly, output any files already written.
 
 ---
 
-## Phase 0: DISCOVER SOURCES
+## Phase 0: CHOOSE FORMAT AND SOURCE
 
 ### 0.1 Set {domain}
 
-Take `{domain}` from the command argument, or infer it from the working directory, or ask. Source documents live under `./{domain}/`.
+Take `{domain}` from the command argument, or infer it from the working directory, or ask. Working docs, if any, live under `./{domain}/`.
 
-### 0.2 Locate the source documents
+### 0.2 Pick the format
 
-Look in `./{domain}/reports/` and `./{domain}/deliverables/` for any of these. Each maps to one branded report:
+Determine the format from the request. Map the user's words: "one-pager" -> one-pager, "deck / slides / presentation / pitch" -> deck, "memo / brief / letter / strategy doc / proposal" -> document, "report / audit / full write-up" -> report. If it is ambiguous, ask which of the four, with a one-line recommendation based on the content and audience.
 
-| Report (output) | Built from (source docs, whichever exist) |
-|-----------------|-------------------------------------------|
-| 1. SEO and AEO Audit | `reports/latest-deep.md` (or the newest `reports/audit-deep-*.md`) |
-| 2. Keyword and Content Plan | `deliverables/topic-clusters.md` + `deliverables/content-briefs.csv` (+ the keyword-strategy section of the audit) |
-| 3. Technical Fix Checklist | `deliverables/tech-fix-checklist.md` |
-| 4. Backlink and E-E-A-T Plan | `deliverables/backlink-opportunities.md` + `deliverables/eeat-improvements.md` |
+| Format | Geometry | Use it for |
+|--------|----------|------------|
+| **Report** | A4 portrait, multi-page | Full audits, content plans, anything with tables, briefs, and several sections. The detailed deliverable. |
+| **One-pager** | A4 portrait, single page | Executive summary, scope sheet, snapshot, leave-behind. One page, no overflow. |
+| **Deck** | 16:9 landscape slides | Pitch, proposal walkthrough, kickoff, anything presented on screen or projected. One idea per slide. |
+| **Document** | A4 portrait, prose | Strategy memo, brief, proposal letter, scope note. Reading-first, light masthead, optional signature block. |
 
-List what was found. If only some exist, build only those, and say which were skipped and why. The set is not fixed: if other working docs exist (for example a `monthly-report` or a custom brief), offer to render them too, one report each, using the same template.
+A single request can produce more than one format (for example a report plus a one-pager summary of it). Build each as its own file.
 
-### 0.3 Ask which to build
+### 0.3 Pick the content source
 
-Show the matched set and ask: "Build all of these, or a subset?" Default to all matched.
+Content can come from either place; decide which applies:
+
+- **From working docs** (audit-based or other). Look in `./{domain}/reports/` and `./{domain}/deliverables/` for source docs. Common mappings, when the source exists:
+
+  | Deliverable subject | Built from |
+  |---------------------|-----------|
+  | SEO and AEO audit | `reports/latest-deep.md` (or the newest `reports/audit-deep-*.md`) |
+  | Keyword and content plan | `deliverables/topic-clusters.md` + `deliverables/content-briefs.csv` |
+  | Technical fix checklist | `deliverables/tech-fix-checklist.md` |
+  | Backlink and E-E-A-T plan | `deliverables/backlink-opportunities.md` + `deliverables/eeat-improvements.md` |
+
+  Other working docs (a monthly report, a custom brief) are fair game too.
+
+- **Supplied directly.** The user hands over the content in the request (a draft, notes, key points). Render that; do not go hunting for an audit.
+
+List what you found or what you were given, and confirm the format + subject before building. Default to building what was asked; if multiple working docs match and the user was vague, show the matched set and ask which to build.
 
 ---
 
 ## Phase 1: BRANDING (apply the default, prompt only if none)
 
-Branding is never hardcoded into the template. Resolve it per run in this order:
+Branding is never hardcoded into a template. Resolve it per run in this order:
 
-1. **Default brand profile**: check the user's standing instructions (global or project CLAUDE.md) and the `.claude/seo-copilot-config.json` `branding` block. If a default brand is set there, **apply it automatically without asking**, and state which brand you used (for example "Styled to {brand}."). Read the brand's source-of-truth file if one is referenced, so the colours, fonts, and logo are accurate. Do not prompt.
-2. **Prompt only if there is no default**, or if the user named a different brand for this deliverable. Ask for these, all optional, with the neutral fallback shown:
+1. **Default brand profile**: the standing default is **TitanX** unless the user names another brand (see the user's global instructions). Apply it automatically without asking and state which brand you used (for example "Styled to TitanX."). Read the brand source-of-truth file (for TitanX, `titanx.io/brand/brand.md`) so colours, fonts, and logo are accurate. Also check `.claude/seo-copilot-config.json` `branding` block for an override. Do not prompt when a default applies.
+2. **Prompt only if there is no default** and the user named no brand. Ask for these, all optional, with the neutral fallback shown:
 
    | Field | Maps to | Default if skipped |
    |-------|---------|--------------------|
    | Brand name | wordmark + footer | the domain |
-   | Logo (URL or local path) | `.band` logo image | none (the wordmark shows instead) |
+   | Logo (URL or local path) | the logo image | none (the wordmark shows instead) |
    | Accent colour (hex) | `--accent` (rules, badges, kicker, links) | `#475569` neutral slate |
-   | Title-band colour (hex) | `--dark` (the dark header band) | `#1F2937` neutral |
+   | Title-band / cover colour (hex) | `--dark` | `#1F2937` neutral |
    | Heading font | `--heading` | Georgia serif stack |
    | Body font | `--body` | system sans stack |
-   | Client name | footer right side | the domain |
-   | Prepared by | byline in the band meta | omitted |
+   | Client name | footer | the domain |
+   | Prepared by | byline | omitted |
 
 3. **Offer to save**: "Save this branding to config so I do not ask next time?" If yes, write the `branding` block to `.claude/seo-copilot-config.json`.
 
-If the user skips everything, render with the neutral defaults already in the template. A skipped logo must fall back to the text wordmark (the template handles this); never ship a broken image.
+If the user skips everything, render with the neutral defaults already in the templates. A skipped logo falls back to the text wordmark (every template handles this); never ship a broken image.
 
-**Logo handling**: a URL is used as-is. A local path should be referenced relative to the output folder (copy the image into `./{domain}/deliverables/assets/` and point at `assets/<file>`), or inlined as a data URI for a fully self-contained file. Prefer a real, verifiable logo; never hand-draw or invent a logo.
+**Logo handling**: a URL is used as-is. A local path is referenced relative to the output folder (copy the image into `./{domain}/deliverables/assets/` and point at `assets/<file>`), or inlined as a data URI for a fully self-contained file. Prefer a real, verifiable logo; never hand-draw or invent one.
 
 ---
 
-## Phase 2: BUILD ONE REPORT PER SOURCE
+## Phase 2: RENDER INTO THE FORMAT TEMPLATE
 
-For each report to build, start from `template.html`, replace the tokens, and inject the rendered content.
+Start from the chosen `formats/*.html`, replace the header tokens, and inject the rendered content into `{{CONTENT}}`.
 
-### 2.1 Set the header tokens
+### 2.1 Set the header tokens (all formats)
 
 | Token | Value |
 |-------|-------|
-| `{{REPORT_TITLE}}` | the report name (for example "Technical Fix Checklist") |
-| `{{REPORT_KICKER}}` | short label, for example "Report 3 of 4 &middot; Technical" |
+| `{{REPORT_TITLE}}` | the deliverable name (for example "Technical Fix Checklist", "Q3 Growth Proposal") |
+| `{{REPORT_KICKER}}` | short label, for example "Technical &middot; Report" or "Proposal" |
 | `{{REPORT_SUB}}` | one-line subtitle |
 | `{{PREPARED_FOR}}` | client / business name |
-| `{{PREPARED_BY}}` | the preparer, or remove the whole "By" span if none |
-| `{{DATE}}` | report date |
+| `{{PREPARED_BY}}` | the preparer, or omit if none |
+| `{{DATE}}` | deliverable date |
 | `{{LOGO_SRC}}` | logo URL/path, or leave empty to show the wordmark |
-| `{{BRAND_NAME}}` | brand name (wordmark + footer left) |
-| `{{CLIENT_NAME}}` | client name (footer right) |
-| `{{CONTENT}}` | the rendered section HTML (2.3) |
+| `{{BRAND_NAME}}` | brand name |
+| `{{CLIENT_NAME}}` | client name (footer) |
+| `{{CONTENT}}` | the rendered body (2.3) |
 
-Apply branding by overriding the BRANDING variables in the `:root` block (`--accent`, `--accent-ink`, `--dark`, `--heading`, `--body`). Set `--accent-ink` to a slightly darker shade of the accent for legible small text on white.
+Apply branding by overriding the BRANDING variables in the `:root` block of the chosen template (`--accent`, `--accent-ink`, `--dark`, `--heading`, `--body`). Set `--accent-ink` to a slightly darker shade of the accent for legible small text on white.
 
-### 2.2 Keep the report structure
+### 2.2 Build the body in the right shape for the format
 
-Each report is a sequence of `<section>` blocks. A section is:
+- **Report** and **document**: a sequence of `<section>` blocks. In the report, number sections (`<h2><span class="n">01</span>Title</h2>` + `<div class="srule"></div>`) and put `class="avoid"` on sections and `.brief` cards that must not split across a page break. In the document, lead with prose under each `<h2>`; close with the `.sign` block for a signature or contact line if it fits the piece.
+- **One-pager**: everything goes in `{{CONTENT}}` and must fit one page. Use `<p class="lead">` for the opening line, then the `.cols` two-column grid of short `.block` items, the `.stats` row for headline figures, compact `.card` and `.callout` blocks. Keep it tight. If it overflows, trim or escalate to a report (see the one-pager guard).
+- **Deck**: each idea is a `<section class="slide">` (the cover is already in the template; add content slides into `{{CONTENT}}`). One idea per slide, a short `<h2>` headline, a `.srule`, then a `.body` with a few blocks (`.grid .g3`/`.g2`, `.stats`, `.points`, a `.callout`, or a small table). Slides are auto-numbered. Do not overfill a slide.
 
-```html
-<section class="avoid">
-  <h2><span class="n">01</span>Section title</h2>
-  <div class="srule"></div>
-  ... content ...
-</section>
-```
+### 2.3 Render content into the shared classes
 
-Number the sections. Use `class="avoid"` on sections (and on `.brief` cards) that should not split across a page break.
+Convert markdown/CSV/notes into clean HTML using the classes the templates already style. Do not invent new styles; reuse these (availability noted where a format omits one):
 
-### 2.3 Render the source content into the template classes
+- **Lead**: `<p class="lead">`. Body: plain `<p>`. Muted note: `<p class="muted">`.
+- **Tables**: plain `<table><thead>...<tbody>...</table>`. Right-align numeric columns with `class="num"`. Monospace a URL/path with `class="pg"`. A keyword cell can use `class="kw"` (report).
+- **Callout**: `<div class="callout"><b>Label.</b> text</div>`.
+- **Stat figures** (one-pager, deck): `.stats` > `.stat` > `.v` (value) + `.l` (label).
+- **Cards**: `.grid .g3`/`.g2` > `.card` (report, deck); compact `.card` inside `.cols` (one-pager).
+- **Severity badges**: `b-crit` Critical, `b-high` High, `b-med` Medium. **Action badges** (report): `b-new`, `b-update`, `b-refresh`. **Priority badges**: `p1`, `p2`, `p3`.
+- **Checklist checkbox** (report): `<span class="chk"></span>` as the first cell.
+- **Numbered points**: the `.points` / `.point` / `.pn` pattern.
+- **Content brief** (report): the `.brief` block with a `.bh` header and a `<dl>` of label/value pairs.
+- **Document prose extras**: `blockquote` for a pulled quote, `.sign` for the closing signature/contact block.
 
-Convert the markdown/CSV into clean HTML using the classes the template already styles. Do not invent new styles; reuse these:
-
-- **Lead paragraph**: `<p class="lead">`. Body: plain `<p>`. Muted note: `<p class="muted">`.
-- **Tables**: plain `<table><thead><tr><th>...</th></tr></thead><tbody>...</tbody></table>`. Right-align numeric columns with `class="num"` on the `th`/`td`. Monospace a URL/path with `class="pg"`. A keyword cell can use `class="kw"`.
-- **Callout** (a headline figure or a key point): `<div class="callout"><b>Label.</b> text</div>`.
-- **Severity badges** (technical): `<span class="badge b-crit">Critical</span>`, `b-high` High, `b-med` Medium.
-- **Action badges** (content plan): `<span class="badge b-new">New</span>`, `b-update` Update, `b-refresh` Refresh.
-- **Priority badges** (authority / backlinks): `<span class="badge p1">P1</span>`, `p2`, `p3`.
-- **Checklist checkbox**: `<span class="chk"></span>` as the first cell of a checklist row.
-- **Legend** under a heading: `<div class="legend"> ... </div>`.
-- **A page brief** (content plan detail): the `.brief` block with a `.bh` header row and a `<dl>` of label/value pairs (Meta title, Meta desc, H1, H2 outline, Internal links, Note).
-- **Numbered points** (for example three key findings): the `.points` / `.point` / `.pn` pattern.
-
-Match the source faithfully. A checklist stays a checklist; a brief stays a brief; tables keep their columns. Group long content plans by theme or by action, and put detailed briefs in their own section.
+Match the source faithfully. A checklist stays a checklist; a brief stays a brief; tables keep their columns. Do not add analysis; this step formats, it does not re-diagnose.
 
 ### 2.4 Output rules (client-facing)
 
 1. No em dashes and no emojis anywhere. Use commas, colons or periods. The middot `&middot;` is fine in the kicker and footer.
-2. No internal tooling or workflow references. Never name internal skills or processes (this skill, an audit skill, a humanizer step, QA notes). Those belong in the working docs, not the deliverable.
+2. No internal tooling or workflow references. Never name internal skills or processes (this skill, an audit skill, a humanizer step, QA notes).
 3. No check IDs or internal codes. Plain language only.
-4. Keep every claim tied to the source doc. Do not add new analysis; this step formats, it does not re-diagnose.
-5. Run the prose through the project's humanizer pass before finalizing (no AI tells), keeping rules 1 to 4.
+4. Keep every claim tied to its source. Do not introduce new findings.
+5. Run the prose through the humanizer pass before finalizing (no AI tells), keeping rules 1 to 4.
 
 ---
 
@@ -162,24 +177,27 @@ Match the source faithfully. A checklist stays a checklist; a brief stays a brie
 
 ### 3.1 Save
 
-Write each report to `./{domain}/deliverables/` with a clear name:
-- `report-1-seo-aeo-audit.html`
-- `report-2-keyword-content-plan.html`
-- `report-3-technical-fix-checklist.html`
-- `report-4-backlink-eeat-plan.html`
+Write each file to `./{domain}/deliverables/` with a clear, format-tagged name:
+- `report-seo-aeo-audit.html`
+- `one-pager-executive-summary.html`
+- `deck-growth-proposal.html`
+- `document-strategy-memo.html`
 
-(Adjust names to whatever set was built.) Copy any local logo into `./{domain}/deliverables/assets/`.
+(Adjust the subject to whatever was built.) Copy any local logo into `./{domain}/deliverables/assets/`.
 
 ### 3.2 Offer to open
 
-Offer to open the files in the browser so the user can review and Cmd+P to PDF. Remind them: Layout Portrait, tick "Background graphics", Chrome for best results.
+Offer to open the files in the browser so the user can review and Cmd+P to PDF. Per-format print reminders:
+- Report / one-pager / document: Layout **Portrait**, tick "Background graphics".
+- Deck: Layout **Landscape**, Margins **None**, tick "Background graphics".
+- Chrome gives the best result in all cases.
 
 ### 3.3 Activity log
 
 Append to `./{domain}/reports/activity-log.md`:
 
 ```
-| YYYY-MM-DD | /deliverables | Built N branded HTML reports (PDF-ready): [list]. Branding: [brand name or "neutral default"]. |
+| YYYY-MM-DD | /deliverables | Built [N] [format(s)] (PDF-ready): [list]. Branding: [brand name or "neutral default"]. |
 ```
 
 ---
@@ -188,8 +206,8 @@ Append to `./{domain}/reports/activity-log.md`:
 
 | Step | Skill |
 |------|-------|
-| Produce the audit and its working docs | `/audit:deep {url}` |
-| Package those docs into branded client reports | `/deliverables` |
-| Build the matching pitch or proposal deck | (use the deck the documents support) |
+| Produce an audit and its working docs | `/audit:deep {url}` |
+| Package those docs (or any content) into a branded deliverable | `/deliverables` |
+| Humanize the prose before finalizing | the humanizer pass (built into this skill) |
 
-Run order: `/audit:deep` to generate the analysis and working docs, then `/deliverables` to turn them into the branded report pack you hand to the client.
+Run order for an audit-based deliverable: `/audit:deep` to generate the analysis, then `/deliverables` to render it in the format you need. For anything else, run `/deliverables` directly with the content and the format.
