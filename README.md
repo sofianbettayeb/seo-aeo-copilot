@@ -15,7 +15,7 @@ No MCP server is required. Each one deepens the analysis when connected:
 | [Google Search Console MCP](https://github.com/sofianbettayeb/gsc-mcp-server) | Search analytics — powers `/click-recovery` and the reports; optional enrichment for `/audit:deep`, `/refresh-content`, `/keywords-opportunity`, `/topic-map` |
 | PageSpeed MCP | Core Web Vitals for `/audit:deep` |
 | A CMS MCP (e.g. [Webflow](https://developers.webflow.com/mcp/reference/overview)) | Reads the CMS as source of truth, and lets content skills apply via the CMS instead of files |
-| [Keywords Everywhere MCP](https://github.com/hithereiamaliff/mcp-keywords-everywhere) | Search volume and intent data |
+| [Keywords Everywhere MCP](https://github.com/hithereiamaliff/mcp-keywords-everywhere) | Search volume and intent data; competitor keywords for `/keyword-strategy` |
 | [AEO Copilot MCP](https://github.com/sofianbettayeb/aeo-copilot-mcp) | `/aeo-onboard` and `/ai-visibility` (LLM visibility tracking) |
 
 `/audit {url}` and `/audit:deep {url}` run on any public URL with zero MCP.
@@ -35,6 +35,8 @@ No MCP server is required. Each one deepens the analysis when connected:
 /plugin install aeo-optimize@seo-aeo-copilot
 /plugin install click-recovery@seo-aeo-copilot
 /plugin install keywords-opportunity@seo-aeo-copilot
+/plugin install keyword-strategy@seo-aeo-copilot
+/plugin install content-brief@seo-aeo-copilot
 /plugin install content-model@seo-aeo-copilot
 /plugin install topic-map@seo-aeo-copilot
 /plugin install weekly-report@seo-aeo-copilot
@@ -55,6 +57,8 @@ No MCP server is required. Each one deepens the analysis when connected:
 | `/audit:deep {url}` | Deep audit — live multi-page crawl, deepened by GSC/PageSpeed/CMS when connected. Findings, forecast, and per-bucket working docs. |
 | `/deliverables` | Turn an audit's working docs into branded, PDF-ready HTML reports. Prompts for branding; neutral default. |
 | `/keywords-opportunity` | Striking-distance keywords + new-topic discovery, scored and routed. |
+| `/keyword-strategy {url}` | Full keyword strategy from a URL — competitors, keyword gap, expansion, topic clusters, page types, phased roadmap. No GSC needed. |
+| `/content-brief` | Map keywords to URLs, decide create/rework/retarget/consolidate per page, output ready-to-execute briefs. |
 | `/topic-map` | Keyword exports + URLs + GSC → structured topic map, gaps, editorial calendar. |
 | `/content-model` | Audit or design the content field model (front-matter / headless CMS / code type / CMS). |
 | `/write-blog` | Write a new SEO+AEO article as a local source file (or a draft). Humanizer pass included. |

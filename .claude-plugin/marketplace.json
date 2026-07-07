@@ -100,6 +100,24 @@
       "tags": ["seo", "keywords", "keyword-research", "gsc", "keywords-everywhere", "striking-distance", "any-platform"]
     },
     {
+      "name": "keyword-strategy",
+      "source": "./plugins/keyword-strategy",
+      "description": "Build a complete keyword strategy from just a URL — analyzes the site, identifies main competitors, pulls their ranking keywords via Keywords Everywhere, finds the keyword gap, explores new keywords, then defines topic clusters, page types, and a phased roadmap based on volume and difficulty. No GSC required.",
+      "version": "1.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "keyword-strategy", "keyword-research", "competitor-analysis", "keyword-gap", "topic-clusters", "keywords-everywhere", "any-platform"]
+    },
+    {
+      "name": "content-brief",
+      "source": "./plugins/content-brief",
+      "description": "Turn a keyword list into an execution plan — maps each keyword to the right URL on the site, decides whether to create, rework, retarget, or consolidate the page, and writes ready-to-execute content briefs (slug, title, H1, meta, outline, internal links, executing skill). Consumes /keyword-strategy output directly.",
+      "version": "1.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "content-brief", "keyword-mapping", "content-planning", "editorial-brief", "create-or-rework", "any-platform"]
+    },
+    {
       "name": "aeo-optimize",
       "source": "./plugins/aeo-optimize",
       "description": "Transform any page or article into an AEO-ready answer — query alignment, direct answers, question-based structure, FAQ + schema markup, internal linking. Edits the local source file with a diff, or outputs paste-ready blocks.",

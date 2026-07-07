@@ -1,0 +1,11 @@
+{
+  "name": "content-brief",
+  "description": "Turn a keyword list into an execution plan — maps each keyword to the right URL, decides create vs rework vs retarget vs consolidate, and writes a ready-to-execute content brief per page.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofianbettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["any-platform", "seo", "content-brief", "keyword-mapping", "content-planning", "editorial-brief", "create-or-rework"]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "keyword-strategy",
+  "description": "Build a complete keyword strategy from a URL — site analysis, competitor identification, keyword gap via Keywords Everywhere, new keyword exploration, then topic clusters, page types, and a phased roadmap based on volume and difficulty.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofianbettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["any-platform", "seo", "keyword-strategy", "keyword-research", "competitor-analysis", "keyword-gap", "topic-clusters", "keywords-everywhere"]
+}
