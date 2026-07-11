@@ -118,6 +118,15 @@
       "tags": ["seo", "content-brief", "keyword-mapping", "content-planning", "editorial-brief", "create-or-rework", "any-platform"]
     },
     {
+      "name": "cluster-map",
+      "source": "./plugins/cluster-map",
+      "description": "Render a keyword strategy as a visual site-structure tree — a self-contained, PDF-ready HTML map of money pages, topic clusters, pillar and supporting pages, phases, and the CTA path from every cluster to the page it feeds.",
+      "version": "1.0.0",
+      "author": { "name": "Sofian Bettayeb" },
+      "category": "seo",
+      "tags": ["seo", "keyword-clusters", "topic-clusters", "site-structure", "visualization", "deliverable", "any-platform"]
+    },
+    {
       "name": "aeo-optimize",
       "source": "./plugins/aeo-optimize",
       "description": "Transform any page or article into an AEO-ready answer — query alignment, direct answers, question-based structure, FAQ + schema markup, internal linking. Edits the local source file with a diff, or outputs paste-ready blocks.",

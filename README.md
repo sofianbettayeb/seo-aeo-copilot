@@ -37,6 +37,7 @@ No MCP server is required. Each one deepens the analysis when connected:
 /plugin install keywords-opportunity@seo-aeo-copilot
 /plugin install keyword-strategy@seo-aeo-copilot
 /plugin install content-brief@seo-aeo-copilot
+/plugin install cluster-map@seo-aeo-copilot
 /plugin install content-model@seo-aeo-copilot
 /plugin install topic-map@seo-aeo-copilot
 /plugin install weekly-report@seo-aeo-copilot
@@ -59,6 +60,7 @@ No MCP server is required. Each one deepens the analysis when connected:
 | `/keywords-opportunity` | Striking-distance keywords + new-topic discovery, scored and routed. |
 | `/keyword-strategy {url}` | Full keyword strategy from a URL — competitors, keyword gap, expansion, topic clusters, page types, phased roadmap. No GSC needed. |
 | `/content-brief` | Map keywords to URLs, decide create/rework/retarget/consolidate per page, output ready-to-execute briefs. |
+| `/cluster-map` | Visualize the keyword strategy as a site-structure tree — money pages, clusters, pillars, supports, phases, and CTA paths in one PDF-ready HTML map. |
 | `/topic-map` | Keyword exports + URLs + GSC → structured topic map, gaps, editorial calendar. |
 | `/content-model` | Audit or design the content field model (front-matter / headless CMS / code type / CMS). |
 | `/write-blog` | Write a new SEO+AEO article as a local source file (or a draft). Humanizer pass included. |

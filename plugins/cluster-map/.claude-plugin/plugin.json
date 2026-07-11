@@ -1,0 +1,11 @@
+{
+  "name": "cluster-map",
+  "description": "Render a keyword strategy as a visual site-structure tree — a self-contained, PDF-ready HTML map of money pages, topic clusters, pillar and supporting pages, phases, and the CTA path from every cluster to the page it feeds.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sofian Bettayeb"
+  },
+  "homepage": "https://github.com/sofianbettayeb/seo-aeo-copilot",
+  "license": "MIT",
+  "keywords": ["any-platform", "seo", "keyword-clusters", "topic-clusters", "site-structure", "visualization", "deliverable", "internal-linking"]
+}
